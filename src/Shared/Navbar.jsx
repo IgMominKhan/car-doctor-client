@@ -2,6 +2,28 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 
+const navList = (
+  <>
+    <li>
+      <NavLink to="/">Home</NavLink>
+    </li>
+    <li>
+      <NavLink to="/about">
+        About
+      </NavLink>
+    </li>
+    <li>
+      <NavLink to="/blog">Blog</NavLink>
+    </li>
+    <li>
+      <NavLink to="/services">Services</NavLink>
+    </li>
+    <li>
+      <NavLink to="/contact">Contact</NavLink>
+    </li>
+  </>
+);
+
 const Navbar = () => {
   return (
     <div>
@@ -28,40 +50,16 @@ const Navbar = () => {
               tabIndex={0}
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
-              <li>
-                <a>Item 1</a>
-              </li>
-              <li tabIndex={0}>
-                <a className="justify-between">
-                  Parent
-                </a>
-              </li>
-              <li>
-                <a>Item 3</a>
-              </li>
+              {navList}
             </ul>
           </div>
-          <Link to='/'><img src={logo} alt=""/></Link>
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li>
-              <NavLink to='/'>Home</NavLink>
-            </li>
-            <li>
-              <NavLink to='/about'>
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to='/blog'>Blog</NavLink>
-            </li>
-            <li>
-              <NavLink to='/services'>Services</NavLink>
-            </li>
-            <li>
-              <NavLink to='/contact'>Contact</NavLink>
-            </li>
+            {navList}
           </ul>
         </div>
         <div className="navbar-end">
