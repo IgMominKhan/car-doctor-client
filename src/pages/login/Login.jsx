@@ -7,7 +7,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 const Login = () => {
 
-  const {login, setUser} = useContext(AuthContext)
+  const {login, setUser, setIsLoading} = useContext(AuthContext)
 
 
 
@@ -21,9 +21,11 @@ const Login = () => {
     login(email, password)
       .then((userCredential) => {
         if (userCredential.user) {
+        
           setUser(userCredential.user);
           alert("Login Success");
           form.reset();
+          setIsLoading(false);
         }
       })
       .catch((err) => alert(err.code || err.message));

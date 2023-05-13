@@ -7,6 +7,7 @@ import FormLayout from "../Layout/FormLayout";
 import PrivateRouter from "./PrivateRouter";
 import Checkout from "../pages/Checkout/Checkout";
 import BookService from "../pages/BookService/BookService";
+import Order from "../pages/Orders/Order";
 
 
 const router = createBrowserRouter(
@@ -17,17 +18,22 @@ const router = createBrowserRouter(
       children: [
         {
           path:'/',
-          element: <PrivateRouter><Home/></PrivateRouter>
+          element:<Home/>
         },
         {
           path:'/checkout',
-          element:<Checkout/> 
+          element:<PrivateRouter><Checkout/></PrivateRouter> 
         },
         {
           path:'/booking/:id',
-          element: <BookService/>,
+          element: <PrivateRouter><BookService/></PrivateRouter>,
           loader: ({params}) => fetch(`https://jq0nvs-3000.csb.app/services/${params.id}`)
+        },
+        {
+          path:'orders',
+          element:<PrivateRouter><Order/></PrivateRouter>
         }
+
 
       ]
     },
