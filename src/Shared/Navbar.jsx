@@ -5,11 +5,12 @@ import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, setUser, logout } = useContext(AuthContext);
 
   // logout
   const handleLogout = () => {
     logout()
+      .then(()=> setUser(null))
       .catch((err) => console.error(err));
   };
 
@@ -30,7 +31,7 @@ const Navbar = () => {
       <li>
         <NavLink to="/services">Services</NavLink>
       </li>
-      {user && <li>
+      {user?.email && <li>
       <NavLink to={`/orders?email=${user.email}`}>Orders</NavLink>
       </li>}
       <li>

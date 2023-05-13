@@ -1,20 +1,21 @@
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../Providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const PrivateRouter = ({ children }) => {
-  const { user, isLoading, setIsLoading } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, isLoading } = useContext(AuthContext);
+  const location = useLocation();
+  
 
-console.log(isLoading,user)
   if (isLoading) {
     return <progress className="progress w-56"></progress>;
   } else if (user) {
     return children;
   } else {
-    useEffect(()=>{
-navigate('/login')
-    },[])
+    
+    return <Navigate to='/login' state={{from:location}}/>
   }
 };
 

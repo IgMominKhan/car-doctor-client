@@ -4,12 +4,16 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 const Login = () => {
 
   const {login, setUser, setIsLoading} = useContext(AuthContext)
 
-
+  const navigate = useNavigate();
+const redirectTo = useLocation().state.from.pathname
 
   // login users
   const handleLogin = (e) => {
@@ -22,10 +26,11 @@ const Login = () => {
       .then((userCredential) => {
         if (userCredential.user) {
         
-          setUser(userCredential.user);
-          alert("Login Success");
-          form.reset();
           setIsLoading(false);
+          setUser(userCredential.user);
+          form.reset();
+          navigate(redirectTo || '/')
+          alert("Login Success");
         }
       })
       .catch((err) => alert(err.code || err.message));
