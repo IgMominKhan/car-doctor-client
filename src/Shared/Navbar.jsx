@@ -1,30 +1,41 @@
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProvider";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { NavLink } from "react-router-dom";
 
-const navList = (
-  <>
-    <li>
-      <NavLink to="/">Home</NavLink>
-    </li>
-    <li>
-      <NavLink to="/about">
-        About
-      </NavLink>
-    </li>
-    <li>
-      <NavLink to="/blog">Blog</NavLink>
-    </li>
-    <li>
-      <NavLink to="/services">Services</NavLink>
-    </li>
-    <li>
-      <NavLink to="/contact">Contact</NavLink>
-    </li>
-  </>
-);
-
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
+
+  // logout
+  const handleLogout = () => {
+    logout()
+      .catch((err) => console.error(err));
+  };
+
+  
+  const navList = (
+    <>
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
+      <li>
+        <NavLink to="/about">
+          About
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/blog">Blog</NavLink>
+      </li>
+      <li>
+        <NavLink to="/services">Services</NavLink>
+      </li>
+      <li>
+        <NavLink to="/contact">Contact</NavLink>
+      </li>
+    </>
+  );
+
   return (
     <div>
       <div className="navbar bg-base-100 py-5">
@@ -51,6 +62,23 @@ const Navbar = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               {navList}
+
+              {user
+                ? (
+                  <>
+                    <li>
+                      <Link>{user?.email}</Link>
+                    </li>
+                    <li>
+                      <Link onClick={handleLogout}>Logout</Link>
+                    </li>
+                  </>
+                )
+                : (
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                )}
             </ul>
           </div>
           <Link to="/">
@@ -60,6 +88,22 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             {navList}
+            {user
+              ? (
+                <>
+                  <li>
+                    <Link>{user?.email}</Link>
+                  </li>
+                  <li>
+                    <Link onClick={handleLogout}>Logout</Link>
+                  </li>
+                </>
+              )
+              : (
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+              )}
           </ul>
         </div>
         <div className="navbar-end">

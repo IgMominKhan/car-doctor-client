@@ -7,7 +7,7 @@ const Slider = () => {
   return (
     <div>
       <div className="carousel w-full">
-        <div id="slide1" className="carousel-item relative w-full md:min-h-[600px]">
+        <div id="slide1" className="carousel-item relative w-full h-[600px]">
           <img
             src={img1}
             className="w-full rounded-lg"
